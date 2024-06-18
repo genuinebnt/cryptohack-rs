@@ -1,0 +1,16 @@
+[package]
+name = "cryptohack-rs"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+path = "./src/bin/ascii.rs"
+name = "ascii"
+
+[[bin]]
+path = "./src/bin/hex.rs"
+name = "hex"
+
+[dependencies]
