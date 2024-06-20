@@ -20,3 +20,7 @@ pub fn rot13_decode(encoded: &str) -> Vec<u8> {
         })
         .collect()
 }
+
+pub fn xor(bytes: &[u8], value: u8) -> Vec<u8> {
+    bytes.into_iter().map(|byte| byte ^ value).collect()
+}

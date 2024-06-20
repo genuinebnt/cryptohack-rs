@@ -1,5 +1,2 @@
-pub mod encoding_challenge;
+pub mod general;
 pub mod utils;
-pub mod ascii;
-pub mod hex;
-pub mod base64;
