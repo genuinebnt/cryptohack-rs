@@ -1,4 +1,4 @@
-use crate::utils::bytes_to_string;
+use crate::utils::bytes::bytes_to_string;
 
 pub fn ascii() -> String {
     let input: Vec<u8> = vec![

@@ -1,4 +1,4 @@
-use crate::utils::hex_to_bytes;
+use crate::utils::hex::hex_to_bytes;
 use base64::prelude::*;
 
 pub fn base64() -> String {

@@ -1,8 +1,8 @@
-use crate::utils::xor as xor_lib;
+use crate::utils::xor::xor as xor_lib;
 
 pub fn xor() -> String {
     let input = "label";
-    String::from_utf8(xor_lib(input.as_bytes(), 13)).unwrap()
+    String::from_utf8(xor_lib(input.as_bytes(), &[13])).unwrap()
 }
 
 #[cfg(test)]
