@@ -6,6 +6,10 @@ pub fn xor(input: &[u8], key: &[u8]) -> Vec<u8> {
         .collect()
 }
 
+pub fn xor_with_byte(input: &[u8], key: u8) -> Vec<u8> {
+    input.into_iter().map(|v| v ^ key).collect()
+}
+
 fn repeat(input: &[u8], len: usize) -> Vec<u8> {
     let mut repeated = Vec::new();
 
