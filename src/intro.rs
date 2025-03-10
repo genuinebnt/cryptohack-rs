@@ -4,7 +4,7 @@ mod tests {
     use num_bigint::BigUint;
     use num_traits::Num;
 
-    use crate::utils::{bytes_to_string, hex_to_bytes, long_to_bytes};
+    use crate::utils::{self, bytes_to_string, hex_to_bytes, long_to_bytes};
 
     #[test]
     fn solve_ascii() {
@@ -41,5 +41,12 @@ mod tests {
         let long = BigUint::from_str_radix(long, 10).unwrap();
         let bytes = long_to_bytes(long).unwrap();
         assert_eq!(bytes_to_string(&bytes), "crypto{3nc0d1n6_4ll_7h3_w4y_d0wn}");
+    }
+
+    #[test]
+    fn solve_xor_starter() {
+        let value = "label";
+        let output = utils::xor(value.to_string(), 13);
+        assert_eq!("crypto{aloha}", format!("crypto{{{}}}", output));
     }
 }

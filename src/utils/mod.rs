@@ -27,6 +27,10 @@ pub fn long_to_bytes(input: BigUint) -> Result<Vec<u8>, ParseIntError> {
         .collect()
 }
 
+pub fn xor(input: String, value: u8) -> String {
+    input.as_bytes().iter().map(|v| (v ^ value) as char).collect()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
