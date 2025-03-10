@@ -4,7 +4,10 @@ mod tests {
     use num_bigint::BigUint;
     use num_traits::Num;
 
-    use crate::utils::{self, bytes_to_string, hex_to_bytes, long_to_bytes};
+    use crate::utils::bytes::{
+        common::{bytes_to_string, hex_to_bytes, long_to_bytes},
+        xor::xor,
+    };
 
     #[test]
     fn solve_ascii() {
@@ -46,7 +49,41 @@ mod tests {
     #[test]
     fn solve_xor_starter() {
         let value = "label";
-        let output = utils::xor(value.to_string(), 13);
-        assert_eq!("crypto{aloha}", format!("crypto{{{}}}", output));
+        let output = xor(value.as_bytes(), &[13]);
+        assert_eq!(
+            "crypto{aloha}",
+            format!("crypto{{{}}}", bytes_to_string(&output))
+        );
+    }
+
+    #[test]
+    fn solve_xor_properties() {
+        let key1 = hex_to_bytes("a6c8b6733c9b22de7bc0253266a3867df55acde8635e19c73313").unwrap();
+        let key2_xor_key3 =
+            hex_to_bytes("c1545756687e7573db23aa1c3452a098b71a7fbf0fddddde5fc1").unwrap();
+        let key1_xor_key2_xor_key3 = xor(&key2_xor_key3, &key1);
+
+        let flag_xor_key1_xor_key3_xor_key2 =
+            hex_to_bytes("04ee9855208a2cd59091d04767ae47963170d1660df7f56f5faf").unwrap();
+
+        let flag = xor(&flag_xor_key1_xor_key3_xor_key2, &key1_xor_key2_xor_key3);
+
+        assert_eq!("crypto{x0r_i5_ass0c1at1v3}", bytes_to_string(&flag));
+    }
+
+    #[test]
+    fn solve_favorite_byte() {
+        let input =
+            hex_to_bytes("73626960647f6b206821204f21254f7d694f7624662065622127234f726927756d")
+                .unwrap();
+        let mut flag = "".to_string();
+        for i in 0..128 {
+            let result = xor(&input, &[i]);
+            if result.starts_with(b"crypto{") {
+                flag = bytes_to_string(&result);
+                break;
+            }
+        }
+        assert_eq!("crypto{0x10_15_my_f4v0ur173_by7e}", flag);
     }
 }
