@@ -4,9 +4,12 @@ mod tests {
     use num_bigint::BigUint;
     use num_traits::Num;
 
-    use crate::utils::bytes::{
-        common::{bytes_to_string, hex_to_bytes, long_to_bytes},
-        xor::xor,
+    use crate::utils::{
+        bytes::{
+            common::{bytes_to_string, hex_to_bytes, long_to_bytes},
+            xor::xor,
+        },
+        crypto::euclid::{egcd, gcd},
     };
 
     #[test]
@@ -85,5 +88,33 @@ mod tests {
             }
         }
         assert_eq!("crypto{0x10_15_my_f4v0ur173_by7e}", flag);
+    }
+
+    #[test]
+    fn solve_you_either_know_xor_you_dont() {
+        let input = hex_to_bytes(
+            "0e0b213f26041e480b26217f27342e175d0e070a3c5b103e2526217f27342e175d0e077e263451150104",
+        )
+        .unwrap();
+        let result = bytes_to_string(&xor(&input, b"crypto{"));
+        let result = bytes_to_string(&xor(&input, b"myXORkey"));
+        assert_eq!(result, "crypto{1f_y0u_Kn0w_En0uGH_y0u_Kn0w_1t_4ll}");
+    }
+
+    #[test]
+    fn solve_greatest_common_divisor() {
+        assert_eq!(gcd(66528, 52920), 1512);
+    }
+
+    #[test]
+    fn solve_extended_gcd() {
+        let (_gcd, u, v) = egcd(26513, 32321);
+        let result;
+        if u < v {
+            result = u;
+        } else {
+            result = v;
+        }
+        assert_eq!(result, -8404);
     }
 }
