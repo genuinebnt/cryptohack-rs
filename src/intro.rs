@@ -109,12 +109,21 @@ mod tests {
     #[test]
     fn solve_extended_gcd() {
         let (_gcd, u, v) = egcd(26513, 32321);
-        let result;
-        if u < v {
-            result = u;
-        } else {
-            result = v;
-        }
+        let result = if u < v { u } else { v };
         assert_eq!(result, -8404);
+    }
+
+    #[test]
+    fn solve_arithmetic_1() {
+        let x = 11 % 6;
+        let y: u64 = 8146798528947 % 17;
+        let result = if x < y { x } else { y };
+        assert_eq!(4, result);
+    }
+
+    #[test]
+    fn solve_modular_inverting() {
+        let (_gcd, u, _v) = egcd(13, 3);
+        assert_eq!(-1, _v);
     }
 }
