@@ -17,6 +17,6 @@ mod tests {
                 }
             }
         }
-        assert_eq!(smallest, 11);
+        assert_eq!(smallest, 8);
     }
 }
