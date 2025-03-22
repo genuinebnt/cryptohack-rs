@@ -10,7 +10,7 @@ mod tests {
         for value in values {
             let residues = quadratic_residue(value, p);
             if residues.is_some() {
-                for residue in residues.iter() {
+                for residue in residues.unwrap().iter() {
                     if residue < &smallest {
                         smallest = *residue;
                     }
